@@ -134,20 +134,21 @@ int selectRoll(){
 int diceNum;
 int passRoll;
 int check;
+int flag = 1;
 void loop() {
 
-
-  diceNum = selectRoll();  // Call to function to select die value
-
+  if(flag == 1){
+    diceNum = selectRoll();  // Call to function to select die value
+    flag = 0;
+    Serial.println("Shake Shake Shake");
+    delay(1000);
+  }
+  
   uint8_t click = 0;
   click = lis.getClick();
-
-  Serial.println(click);
-
-  delay(3000);
-
-  
-  while(click == 1) { 
+  if (click == 0) return;
+  if (! (click & 0x30)) return;  
+  if(click & 0x10) { 
 
       ROLL = TrueRandom.random(1, diceNum);
       Serial.println("You rolled a");Serial.println(ROLL);
@@ -162,14 +163,15 @@ void loop() {
 
       if(diceNum == check){
         Serial.println("Shake again");
-        click = 0;
+        flag = 0;
        
    
       }
       else if(diceNum != check){
-        click = 1;
+        flag = 1;
 }
 return;
 } }
+
 
     
