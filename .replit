@@ -1,2 +1,177 @@
-language = "c"
-run = ""
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_LIS3DH.h>
+#include <Adafruit_Sensor.h>
+//#include <elapsedMillis.h>
+#include <TrueRandom.h>
+//#include <Adafruit_GFX.h>
+//#include <Adafruit_SSD1306.h>
+
+// Used for software SPI
+#define LIS3DH_CLK 13
+#define LIS3DH_MISO 12
+#define LIS3DH_MOSI 11
+// Used for hardware & software SPI
+#define LIS3DH_CS 10
+
+//#define SCREEN_WIDTH 128 // OLED display width, in pixels
+//#define SCREEN_HEIGHT 32 // OLED display height, in pixels
+
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+//#define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
+//Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+// DEFINITIONS FOR POTENTIOMETER
+#define ROLLd4 4
+#define ROLLd6 6
+#define ROLLd8 8
+#define ROLLd10 10
+#define ROLLd12 12
+#define ROLLd20 20
+
+int ROLL = 0;
+
+//Time for loop
+//unsigned int interval = 60000; //fifteen sec in ms
+//elapsedMillis timeElapsed;
+
+
+// SHAKE LED 
+int pinButton = 8; // INT input
+int LED = 2; // LED
+int stateLED = LOW;
+int StateButton;
+int previous = LOW;
+long time = 0;
+long debounce = 200;
+
+// POTENTIOMETER
+int sensorPin = A0;  //sensor for pot
+int sensorValue = 0;
+
+// software SPI
+Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3DH_CLK);
+// hardware SPI
+//Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS);
+// I2C
+//Adafruit_LIS3DH lis = Adafruit_LIS3DH();
+
+// Adjust this number for the sensitivity of the 'click' force
+// this strongly depend on the range! for 16G, try 5-10
+// for 8G, try 10-20. for 4G try 20-40. for 2G try 40-80
+#define CLICKTHRESHHOLD 125
+
+void setup(void) {
+
+  
+ // SHAKE LED INPUT/OUTPUT
+  pinMode(pinButton, INPUT); // Pin 8 set to be input
+  pinMode(LED, OUTPUT); // set LED as output
+  digitalWrite(8, LOW);
+  
+#ifndef ESP8266
+  while (!Serial) yield();     // will pause Zero, Leonardo, etc until serial console opens
+#endif
+
+  Serial.begin(9600);
+    Serial.println("Adafruit LIS3DH Tap Test!");
+  
+  if (! lis.begin(0x18)) {   // change this to 0x19 for alternative i2c address
+    Serial.println("Couldnt start");
+    while (1) yield();
+  }
+  Serial.println("LIS3DH found!");
+  
+  lis.setRange(LIS3DH_RANGE_2_G);   // 2, 4, 8 or 16 G!
+  
+  Serial.print("Range = "); Serial.print(2 << lis.getRange());  
+  Serial.println("G");
+
+  // 0 = turn off click detection & interrupt
+  // 1 = single click only interrupt output
+  // 2 = double click only interrupt output, detect single click
+  // Adjust threshhold, higher numbers are less sensitive
+  lis.setClick(1, CLICKTHRESHHOLD);
+  delay(100);
+}
+
+
+// Function to set the die number.
+int selectRoll(){
+  int result;  
+  Serial.println("Enter the die number to roll");
+  delay(10000);  // Delay to let person turn pot
+  sensorValue = analogRead(sensorPin);
+  sensorValue = map(sensorValue, 0, 1023, 0, 20);
+
+
+  if(sensorValue <= ROLLd4){
+    Serial.println("Roll a d4");
+  }
+  else if(sensorValue > ROLLd4 && sensorValue <= ROLLd6){
+    Serial.println("Roll a d6");
+  }
+  else if(sensorValue > ROLLd6 && sensorValue <= ROLLd8){
+    Serial.println("Roll a d8");
+  }
+  else if(sensorValue > ROLLd8 && sensorValue <= ROLLd10){
+    Serial.println("Roll a d10");
+  }
+  else if(sensorValue > ROLLd10 && sensorValue <= ROLLd12){
+    Serial.println("Roll a d12");
+  }
+  else{
+    Serial.println("Roll a d20");
+  }
+
+  result = sensorValue + 1;  // add 1 to result for random number function call later
+  return result;
+}
+
+
+
+
+int diceNum;
+int passRoll;
+int check;
+int flag = 1;
+void loop() {
+
+  if(flag == 1){
+    diceNum = selectRoll();  // Call to function to select die value
+    flag = 0;
+    Serial.println("Shake Shake Shake");
+    delay(1000);
+  }
+  
+  uint8_t click = 0;
+  click = lis.getClick();
+  if (click == 0) return;
+  if (! (click & 0x30)) return;  
+  if(click & 0x10) { 
+
+      ROLL = TrueRandom.random(1, diceNum);
+      Serial.println("You rolled a");Serial.println(ROLL);
+      delay(4000);
+
+      Serial.println("Change dial position to roll a different value");
+      delay(10000);
+      check = analogRead(sensorPin);
+      check = map(check, 0, 1023, 0, 20)+1;
+      
+      
+
+      if(diceNum == check){
+        Serial.println("Shake again");
+        flag = 0;
+       
+   
+      }
+      else if(diceNum != check){
+        flag = 1;
+}
+return;
+} }
+
+
+    
