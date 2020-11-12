@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.4.2">
+<eagle version="9.6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -158,11 +158,6 @@
 </layers>
 <board>
 <plain>
-<wire x1="0" y1="0" x2="49.149" y2="0" width="0" layer="20"/>
-<wire x1="49.149" y1="0" x2="49.149" y2="49.149" width="0" layer="20"/>
-<wire x1="49.149" y1="49.149" x2="0" y2="49.149" width="0" layer="20"/>
-<wire x1="0" y1="49.149" x2="0" y2="48.905509375" width="0" layer="20"/>
-<wire x1="0" y1="48.753109375" x2="0" y2="0" width="0" layer="20"/>
 <hole x="2.54" y="2.54" drill="0.35"/>
 <hole x="2.54" y="46.99" drill="0.35"/>
 <hole x="46.99" y="46.99" drill="0.35"/>
@@ -173,6 +168,10 @@ Nicole Fellows
 Jack Chen</text>
 <dimension x1="0" y1="0" x2="0" y2="49.149" x3="-8.89" y3="24.5745" textsize="1.778" layer="1"/>
 <dimension x1="0" y1="0" x2="49.149" y2="0" x3="24.5745" y3="-3.81" textsize="1.778" layer="1"/>
+<wire x1="0" y1="49.53" x2="0" y2="0" width="0.127" layer="20"/>
+<wire x1="0" y1="0" x2="49.53" y2="0" width="0.127" layer="20"/>
+<wire x1="49.53" y1="0" x2="49.53" y2="49.53" width="0.127" layer="20"/>
+<wire x1="49.53" y1="49.53" x2="0" y2="49.53" width="0.127" layer="20"/>
 </plain>
 <libraries>
 <library name="rcl">
