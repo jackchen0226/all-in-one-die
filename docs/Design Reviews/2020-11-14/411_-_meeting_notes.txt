@@ -1,0 +1,50 @@
+team 3 
+
+overview:
+project is for tabletop gaming and the device is houses a screen and a dial on side to select
+the type of die you want to roll so you can go 4 8 12 20, shake it, and it displays and and you have option to roll again or select diff
+
+block diagram:
+sensor: - lis3dh accelorometer set right now to high sensitivity, someone could set off false rolls, and a potentiometer for the button
+	we didn't want to use buttons on the device, all functionality is broken into the potentiometer and the timing
+Andy: i like that - thought to the UX
+
+actuator: - with the sensor reading botht the shake and pot setting, it displays onto an oled screen - 128*32 screen, you can include messages (andy asked about messages) andrew - put skull and cross bones on it, hahahah
+oled is output - other output is the buzzer for a nat 1, sound,
+the controller atmega32
+power supply - batteries - 4 AAs (6 volts into 5 volts)
+
+
+Mini Design Review:
+Devon sharing screen: the schematic overview - 
+looking at power first - 2 parts, the dc female to take in power with 5v regulator, power led to show that we are getting proper power, added 3.3v for the accelormeter to conver down
+	and: good job on the 5v - burn less power
+		few things: what is ic1 - no value associated with it - voltage regulator we pulled off of mouser 7805? use value command so it's not just a black box - no black boxes
+				lm1117 - it's got a vout, input, adj/gnd and output - the datasheet uses 4 pins but table only shows the 3 pins, 3.3v output - the tab on the transistor - vout
+			we will plug batteries into that - putting the diode in there is good
+			usb to serial: it's adorable - stick with low power module, miniusb port, good job on shield for capacitor to gnd, rx goes to rx - yup that's wrong, on a UART rx goes to tx, and tx goes to rx, know it and connect appropraitely
+			crystal resonator is fine - good job on the bypass caps
+			icsp - we gett to program it, arduino ecosystem, reset goes to left to reset the dtr thing - the lcd goes to some pins and that's 5v as well, the lcd 5v in/out? not super verified, but we have been using 5v
+			Accelerometer: have a jumper that is being used as test point, incase we need to use an external, this could be a pain cause small
+			WE NEED BYPASS CAPS 100nF whereever there is vdd (at least 2), any single chip that is off in space need local charge resovoirs
+			using spie mode- great
+			not sure we want to ground chip-select, in spie mode it needs to go to output for the chip select, cs tied to pin on arduino - we need taht, spie requires cs to go from high to low to start process
+			strongly suggest test points on unused pins on microcontrollera nd accelerometer
+			driving buzzer directly which is probably okay - we proabbly need to have a jumper in our buzzer so we can disconnect it when we are programming it - 0 ohm resistor or something so we can program without the buzzer in place
+			run erc - interuupt pins can go to test points - or not, up to us - and then we have std power warnings that we can approve
+			excellent - good schematic
+
+		layout: all fired
+			gnd plane on both sides - good
+			change dimensions to different layer - they are currently copper 
+			power is thick - nice
+			team number needed ece411-tx-xxx (follow instructions completely)
+			current goal is make board
+			where is usb connector? - we have type b connector oop - it'll work, just giant
+			really really good
+			clean up team name layer 
+			dis -tval
+			more to clean up but fine
+			last thing need to do - staple your board, add gnd vias every 1/2 in or so, us via cmd, via 'gnd' - put those everywhere so ground works well - in places where gnd signal cut in pieces - more the merrier
+			drc - air wires and stuff to fix, make sure all are clear and we are good. 
+
