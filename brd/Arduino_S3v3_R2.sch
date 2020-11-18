@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.4.2">
+<eagle version="9.6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -4957,7 +4957,11 @@ Source: &lt;a href="http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10
 </class>
 </classes>
 <parts>
-<part name="ICSP" library="pinhead" deviceset="PINHD-2X3" device="" value="ICSP"/>
+<part name="ICSP" library="pinhead" deviceset="PINHD-2X3" device="" value="ICSP">
+<attribute name="MFR" value="Harwin"/>
+<attribute name="MOUSER_URL" value="https://www.mouser.com/ProductDetail/Harwin/M20-9980346?qs=%2Fha2pyFadugpDTU623Z7cOn94IPgrKYxpsSsFXjhjuIUvhMLOEYbRg%3D%3D"/>
+<attribute name="MPN" value="M20-9980346"/>
+</part>
 <part name="P+1" library="supply1" deviceset="+5V" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="R11" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="10KOHM" device="-0603-1/10W-1%" package3d_urn="urn:adsk.eagle:package:39650/1" value="10k">
@@ -5057,7 +5061,11 @@ Source: &lt;a href="http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10
 <attribute name="MFR" value="Microchip Technology / Atmel"/>
 <attribute name="MPN" value="ATMEGA328P-AU"/>
 </part>
-<part name="LCD" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X7" device="" package3d_urn="urn:adsk.eagle:package:22477/2" value="LCD PINOUT"/>
+<part name="LCD" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X7" device="" package3d_urn="urn:adsk.eagle:package:22477/2" value="LCD PINOUT">
+<attribute name="MFR" value="Harwin"/>
+<attribute name="MOUSER_URL" value="https://www.mouser.com/ProductDetail/Harwin/M20-9770746?qs=Jph8NoUxIfW4IDi91nhySw%3D%3D"/>
+<attribute name="MPN" value="M20-9770746"/>
+</part>
 <part name="GND14" library="supply1" deviceset="GND" device=""/>
 <part name="P+7" library="supply1" deviceset="+5V" device=""/>
 <part name="C9" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="0.1UF" device="-0603-25V-(+80/-20%)" package3d_urn="urn:adsk.eagle:package:37414/1" value="0.1uF">
@@ -5079,7 +5087,11 @@ Source: &lt;a href="http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10
 <part name="P+9" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 <part name="GND3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND27" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="JP1" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X7" device="" package3d_urn="urn:adsk.eagle:package:22477/2" value="DEBUG PINOUT"/>
+<part name="JP1" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X7" device="" package3d_urn="urn:adsk.eagle:package:22477/2" value="DEBUG PINOUT">
+<attribute name="MFR" value="Harwin"/>
+<attribute name="MOUSER_URL" value="https://www.mouser.com/ProductDetail/Harwin/M20-9770746?qs=Jph8NoUxIfW4IDi91nhySw%3D%3D"/>
+<attribute name="MPN" value="M20-9770746"/>
+</part>
 <part name="LS1" library="SparkFun-Electromechanical" library_urn="urn:adsk.eagle:library:516" deviceset="BUZZER" device="-PTH" package3d_urn="urn:adsk.eagle:package:38558/1">
 <attribute name="MFR" value="TDK"/>
 <attribute name="MPN" value="SD1209T5-A1"/>
@@ -5111,7 +5123,11 @@ Source: &lt;a href="http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10
 <part name="IC2" library="SamacSys_Parts" deviceset="LM1117IMP-3.3_NOPB" device=""/>
 <part name="P+10" library="supply1" deviceset="+5V" device=""/>
 <part name="GND32" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C15" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="10UF" device="-0603-6.3V-20%" package3d_urn="urn:adsk.eagle:package:37414/1" value="10uF"/>
+<part name="C15" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="10UF" device="-0603-6.3V-20%" package3d_urn="urn:adsk.eagle:package:37414/1" value="10uF">
+<attribute name="MFR" value="Murata Electronics"/>
+<attribute name="MOUSER_URL" value="https://www.mouser.com/ProductDetail/Murata-Electronics/GRM188R61E106KA73D?qs=sGAEpiMZZMsh%252B1woXyUXj%252BPOAS4JE4Y%252Bzpwpuo4MIOw%3D"/>
+<attribute name="MPN" value="GRM188R61E106KA73D"/>
+</part>
 <part name="SUPPLY1" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="3.3V" device=""/>
 <part name="SUPPLY2" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="3.3V" device=""/>
 <part name="SUPPLY3" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="3.3V" device=""/>
@@ -5126,8 +5142,16 @@ Source: &lt;a href="http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10
 <attribute name="MFR" value="KEMET"/>
 <attribute name="MPN" value="C0603X104K5RAC3316"/>
 </part>
-<part name="JP2" library="jumper" library_urn="urn:adsk.eagle:library:252" deviceset="JP1E" device="" package3d_urn="urn:adsk.eagle:package:15455/1" value="JUMPER"/>
-<part name="R3" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="100OHM" device="-0603-1/4W-5%" package3d_urn="urn:adsk.eagle:package:39650/1" value="100"/>
+<part name="JP2" library="jumper" library_urn="urn:adsk.eagle:library:252" deviceset="JP1E" device="" package3d_urn="urn:adsk.eagle:package:15455/1" value="JUMPER">
+<attribute name="MFR" value="Harwin"/>
+<attribute name="MOUSER_URL" value="https://www.mouser.com/ProductDetail/Harwin/M20-9990246?qs=%2Fha2pyFaduiXJxN7aDGirbxqdyhVq5pmtKpTydx04Ewn6SNnO8w53Q%3D%3D"/>
+<attribute name="MPN" value="M20-9990246"/>
+</part>
+<part name="R3" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="100OHM" device="-0603-1/4W-5%" package3d_urn="urn:adsk.eagle:package:39650/1" value="100">
+<attribute name="MFR" value="Vishay / Dale"/>
+<attribute name="MOUSER_URL" value="https://www.mouser.com/ProductDetail/Vishay-Dale/RCC0603100RFKEA?qs=sGAEpiMZZMtlubZbdhIBINZyO39%252BOXIfMh0DS6XcVj8%3D"/>
+<attribute name="MPN" value="RCC0603100RFKEA"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -5174,6 +5198,9 @@ Jack Chen</text>
 <instance part="ICSP" gate="A" x="225.425" y="147.955" smashed="yes">
 <attribute name="NAME" x="219.075" y="153.67" size="1.778" layer="95"/>
 <attribute name="VALUE" x="219.075" y="140.335" size="1.778" layer="96"/>
+<attribute name="MFR" x="225.425" y="147.955" size="1.778" layer="96" display="off"/>
+<attribute name="MOUSER_URL" x="225.425" y="147.955" size="1.778" layer="96" display="off"/>
+<attribute name="MPN" x="225.425" y="147.955" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="P+1" gate="1" x="241.935" y="160.02" smashed="yes">
 <attribute name="VALUE" x="243.84" y="162.56" size="1.778" layer="96" rot="R180"/>
@@ -5353,6 +5380,9 @@ Jack Chen</text>
 <instance part="LCD" gate="A" x="274.32" y="78.74" smashed="yes">
 <attribute name="NAME" x="267.97" y="86.995" size="1.778" layer="95"/>
 <attribute name="VALUE" x="276.86" y="69.85" size="1.778" layer="96" rot="R90"/>
+<attribute name="MFR" x="274.32" y="78.74" size="1.778" layer="96" display="off"/>
+<attribute name="MOUSER_URL" x="274.32" y="78.74" size="1.778" layer="96" display="off"/>
+<attribute name="MPN" x="274.32" y="78.74" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="GND14" gate="1" x="264.16" y="68.58" smashed="yes">
 <attribute name="VALUE" x="261.62" y="66.04" size="1.778" layer="96"/>
@@ -5408,6 +5438,9 @@ Jack Chen</text>
 <instance part="JP1" gate="A" x="307.34" y="109.22" smashed="yes">
 <attribute name="NAME" x="303.53" y="120.015" size="1.778" layer="95"/>
 <attribute name="VALUE" x="312.42" y="102.87" size="1.778" layer="96" rot="R90"/>
+<attribute name="MFR" x="307.34" y="109.22" size="1.778" layer="96" display="off"/>
+<attribute name="MOUSER_URL" x="307.34" y="109.22" size="1.778" layer="96" display="off"/>
+<attribute name="MPN" x="307.34" y="109.22" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="LS1" gate="G$1" x="345.44" y="104.14" smashed="yes">
 <attribute name="NAME" x="342.9" y="108.966" size="1.778" layer="95" font="vector"/>
@@ -5480,6 +5513,9 @@ Jack Chen</text>
 <instance part="C15" gate="G$1" x="114.3" y="190.5" smashed="yes">
 <attribute name="NAME" x="115.824" y="193.421" size="1.778" layer="95" font="vector"/>
 <attribute name="VALUE" x="115.824" y="188.341" size="1.778" layer="96" font="vector"/>
+<attribute name="MFR" x="114.3" y="190.5" size="1.778" layer="96" display="off"/>
+<attribute name="MOUSER_URL" x="114.3" y="190.5" size="1.778" layer="96" display="off"/>
+<attribute name="MPN" x="114.3" y="190.5" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="SUPPLY1" gate="G$1" x="114.3" y="198.12" smashed="yes">
 <attribute name="VALUE" x="114.3" y="200.914" size="1.778" layer="96" align="bottom-center"/>
@@ -5515,10 +5551,16 @@ Jack Chen</text>
 <instance part="JP2" gate="A" x="312.42" y="96.52" smashed="yes">
 <attribute name="NAME" x="311.15" y="96.52" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="318.135" y="96.52" size="1.778" layer="96" rot="R90"/>
+<attribute name="MFR" x="312.42" y="96.52" size="1.778" layer="96" display="off"/>
+<attribute name="MOUSER_URL" x="312.42" y="96.52" size="1.778" layer="96" display="off"/>
+<attribute name="MPN" x="312.42" y="96.52" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="R3" gate="G$1" x="330.2" y="93.98" smashed="yes">
 <attribute name="NAME" x="330.2" y="95.504" size="1.778" layer="95" font="vector" align="bottom-center"/>
 <attribute name="VALUE" x="330.2" y="92.456" size="1.778" layer="96" font="vector" align="top-center"/>
+<attribute name="MFR" x="330.2" y="93.98" size="1.778" layer="96" display="off"/>
+<attribute name="MPN" x="330.2" y="93.98" size="1.778" layer="96" display="off"/>
+<attribute name="MOUSER_URL" x="330.2" y="93.98" size="1.778" layer="96" display="off"/>
 </instance>
 </instances>
 <busses>
