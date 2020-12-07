@@ -128,6 +128,30 @@ void setup(void) {
     pinMode(BUZZER_PIN, OUTPUT);
   }
   
+  //____________POTENTIOMETER AND RANDOMNESS___________
+  // Randomness would be a generated value 
+  // We use 3 sources of real-world randomness
+  // 1) The fluctuations of an analog pin
+  // 2) The x position of the accelerometer
+  // 3) The y acceleration of the accelerometer
+  //
+  // We use x pos because testing had a fluctuation range of ~150
+  // y acceleration chosen arbitrarily
+  // analog pin to add another source of randomness
+  // -J.C
+
+  int pot_value = analogRead(SENSOR_PIN);
+  lis.read();   // Gets X Y and Z data at once
+
+  // Get the normalized acceleration event
+  sensors_event_t event;
+  lis.getEvent(&event);
+
+  // Seed RNG
+  // lis.x and event.acceleration.y can go negative, causing overflows
+  // making this function more chaotic. Good for randomness -J.C.
+  randomSeed((unsigned int)(lis.x * event.acceleration.y - pot_value));
+
 }
 
 
@@ -183,12 +207,12 @@ void write_out(int curr_state, bool shaking, int roll) {
     
     // Write to row 1
     display.setCursor(0, CHAR_HEIGHT*1);
-    display.println(F("SHAAAAKE!!"));             // Size 2 font has 10 char max
+    display.println(F("SHAKING!!!"));             // Size 2 font has 10 char max
 
     display.setTextSize(1);
     // Write to row 3
     display.setCursor(0, CHAR_HEIGHT*3);
-    display.println(F("  SHAKE!   SHAKE!  "));    // Size 1 font has 21 char max
+    display.println(F(" ROLLING!  ROLLING! "));    // Size 1 font has 21 char max
  
     // Display the buffer, then begin scrolling display
     display.display();
