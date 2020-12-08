@@ -1,0 +1,128 @@
+
+// Basic demo for accelerometer readings from Adafruit LIS3DH
+
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_LIS3DH.h>
+#include <Adafruit_Sensor.h>
+
+// Used for software SPI
+#define LIS3DH_CLK 5
+#define LIS3DH_MISO 19
+#define LIS3DH_MOSI 18
+// Used for hardware & software SPI
+#define LIS3DH_CS 32
+
+// software SPI
+Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3DH_CLK);
+// hardware SPI
+//Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS);
+// I2C
+//Adafruit_LIS3DH lis = Adafruit_LIS3DH();
+
+// Adjust this number for the sensitivity of the 'click' force
+// this strongly depend on the range! for 16G, try 5-10
+// for 8G, try 10-20. for 4G try 20-40. for 2G try 40-80
+#define CLICKTHRESHHOLD 125
+
+#define CLICKLIMIT  13  // Time in 1/ODR that acceleration must be maintained for a click
+#define CLICKLATENCY 50 // Time in 1/ODR that the interrupt remains high 
+
+#define SENSOR_PIN A0
+
+void setup(void) {
+  Serial.begin(115200);
+  while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
+
+  Serial.println("LIS3DH test!");
+
+  if (! lis.begin(0x18)) {   // change this to 0x19 for alternative i2c address
+    Serial.println("Couldnt start");
+    while (1) yield();
+  }
+  Serial.println("LIS3DH found!");
+
+  // lis.setRange(LIS3DH_RANGE_4_G);   // 2, 4, 8 or 16 G!
+
+  Serial.print("Range = "); Serial.print(2 << lis.getRange());
+  Serial.println("G");
+
+  lis.setDataRate(LIS3DH_DATARATE_25_HZ);
+  Serial.print("Data rate set to: ");
+  switch (lis.getDataRate()) {
+    case LIS3DH_DATARATE_1_HZ: Serial.println("1 Hz"); break;
+    case LIS3DH_DATARATE_10_HZ: Serial.println("10 Hz"); break;
+    case LIS3DH_DATARATE_25_HZ: Serial.println("25 Hz"); break;
+    case LIS3DH_DATARATE_50_HZ: Serial.println("50 Hz"); break;
+    case LIS3DH_DATARATE_100_HZ: Serial.println("100 Hz"); break;
+    case LIS3DH_DATARATE_200_HZ: Serial.println("200 Hz"); break;
+    case LIS3DH_DATARATE_400_HZ: Serial.println("400 Hz"); break;
+
+    case LIS3DH_DATARATE_POWERDOWN: Serial.println("Powered Down"); break;
+    case LIS3DH_DATARATE_LOWPOWER_5KHZ: Serial.println("5 Khz Low Power"); break;
+    case LIS3DH_DATARATE_LOWPOWER_1K6HZ: Serial.println("16 Khz Low Power"); break;
+  }
+
+  lis.setClick(1, CLICKTHRESHOLD, CLICKLIMIT, CLICKLATENCY);
+
+  //____________POTENTIOMETER AND RANDOMNESS___________
+  // Randomness would be a generated value 
+  // We use 3 sources of real-world randomness
+  // 1) The fluctuations of an analog pin
+  // 2) The x position of the accelerometer
+  // 3) The y acceleration of the accelerometer
+  //
+  // We use x pos because testing had a fluctuation range of ~150
+  // y acceleration chosen arbitrarily
+  // analog pin to add another source of randomness
+  // -J.C
+  
+  int pot_value = analogRead(SENSOR_PIN);
+  lis.read();   // Gets X Y and Z data at once
+
+  // Get the normalized acceleration event
+  sensors_event_t event;
+  lis.getEvent(&event);
+
+  // Seed RNG
+  // lis.x and event.acceleration.y can go negative, causing overflows
+  // making this function more chaotic. Good for randomness -J.C.
+  randomSeed((unsigned int)(lis.x * event.acceleration.y - pot_value));
+  
+  pinMode(21, INPUT);
+  pinMode(13, OUTPUT);
+}
+
+void loop() {
+
+  /*
+  lis.read();      // get X Y and Z data at once
+  // Then print out the raw data
+  Serial.print("X:  "); Serial.print(lis.x);
+  Serial.print("  \tY:  "); Serial.print(lis.y);
+  Serial.print("  \tZ:  "); Serial.print(lis.z);
+
+  // Or....get a new sensor event, normalized
+  sensors_event_t event;
+  lis.getEvent(&event);
+
+  // Display the results (acceleration is measured in m/s^2)
+  Serial.print("\t\tX: "); Serial.print(event.acceleration.x);
+  Serial.print(" \tY: "); Serial.print(event.acceleration.y);
+  Serial.print(" \tZ: "); Serial.print(event.acceleration.z);
+  Serial.println(" m/s^2 ");
+
+  Serial.println();
+  */  
+
+  uint8_t click = 0;
+  click = lis.getClick();
+
+  digitalWrite(13, click & 0x10);
+  if (click & 0x10) {
+    Serial.println("Detected click");
+    Serial.println(random(1, 100));
+  }
+  
+  delay(200);
+}
