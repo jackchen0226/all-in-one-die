@@ -35,12 +35,12 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,
 
 // ________________ACCELEROMETER________________
 // Used for software SPI
-#define LIS3DH_CLK 	5	// Clock (SCK on chip)
-#define LIS3DH_MISO 19	// Master input, Slave output (SDO on chip)
-#define LIS3DH_MOSI 18	// Master output, Slave input (SDA on chip)
+#define LIS3DH_CLK 	13	// Clock (SCK on chip)
+#define LIS3DH_MISO 12	// Master input, Slave output (SDO on chip)
+#define LIS3DH_MOSI 11	// Master output, Slave input (SDA on chip)
 // Used for hardware & software SPI
-#define LIS3DH_CS 	32	// Chip select (CS on chip)
-#define LIS3DH_INT	21	// Interrupt pin (INT on chip), disable if not in use -J.C
+#define LIS3DH_CS 	10	// Chip select (CS on chip)
+//#define LIS3DH_INT	21	// Interrupt pin (INT on chip), disable if not in use -J.C
 Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3DH_CLK);
 
 // Adjust this number for the sensitivity of the 'click' force
@@ -65,11 +65,11 @@ Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3D
 
 const int SENSOR_PIN = A0;  //sensor for pot
 int sensorValue = 0;
-#define ADC_MAX 2048        // maximum analog read value from ADC, 2048 for ESP32, 1024 for Uno/Atmega
+#define ADC_MAX 1024        // maximum analog read value from ADC, 2048 for ESP32, 1024 for Uno/Atmega
 
 
 // _____________BUZZER_________________
-#define BUZZER_PIN 15	// Digital pin for buzzer control
+#define BUZZER_PIN 9	// Digital pin for buzzer control
 // Used for the esp32 implementation of the buzzer, since tone() does not work -J.C
 #define BUZZER_FREQ 2000  // PWM freq
 #define BUZZER_CH 0       // Digital channel of the buzzer
@@ -78,7 +78,7 @@ int sensorValue = 0;
 
 // ______________MISC_________________
 int ROLL = 0;
-#define USE_ESP32 true    // CHANGE IF BOARD IS ESP32 -J.C
+#define USE_ESP32 false    // CHANGE IF BOARD IS ESP32 -J.C
 
 
 
@@ -120,13 +120,14 @@ void setup(void) {
 
   // ____________BUZZER___________
   if (USE_ESP32) {
+    /*
     // Set up led PWM to be used for a buzzer
 	  ledcSetup(BUZZER_CH, BUZZER_FREQ, RES);
     // Attach digital channel to physical pin
     ledcAttachPin(BUZZER_PIN, BUZZER_CH);
     ledcWrite(BUZZER_CH, 125);  // Set to 50% duty cycle (half of 2^RES)
     ledcWriteTone(BUZZER_CH, LOW);
-
+    */
   }
   else {
     pinMode(BUZZER_PIN, OUTPUT);
@@ -259,12 +260,8 @@ void write_out(int curr_state, bool shaking, int roll) {
 
 
 // Comment out if using ESP32 -J.C
-/*
+
 void play_sound() {
-  if (USE_ESP32) {
-    play_sound_esp32()
-  }
-  else {
     // Megalovania
     // Composed by Toby Fox
     // D3 eigth note (beamed)
@@ -289,9 +286,8 @@ void play_sound() {
     tone(BUZZER_PIN, 220);
     delay(250);
     noTone(BUZZER_PIN);
-  }
-}*/
-
+}
+/*
 void play_sound_esp32() {
   // Megalovania
   // Composed by Toby Fox
@@ -318,7 +314,7 @@ void play_sound_esp32() {
   delay(250);
   ledcWriteTone(BUZZER_CH, LOW);
 }
-
+*/
 // Variables deprecated -J.C
 int diceNum;
 int passRoll;
@@ -338,7 +334,7 @@ void loop() {
   // 4 -> d12
   // 5 -> d20
   sensorValue = analogRead(SENSOR_PIN);
-  sensorValue = map(sensorValue, 0, ADC_MAX, 0, 6);
+  sensorValue = map(sensorValue, 0, ADC_MAX, 0, 8);
 
   switch (sensorValue) {
     case 0:
@@ -412,7 +408,8 @@ void loop() {
   // Roll only ever displayed when we previously shook and current not shaking
   if (prev_shaking & !curr_shaking) {
     if (ROLL == 1)
-      play_sound_esp32();
+      //play_sound_esp32();
+      play_sound();
     delay(5000);
   }
 
