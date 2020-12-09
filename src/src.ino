@@ -62,6 +62,7 @@ Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3D
 
 const int SENSOR_PIN = A0;  //sensor for pot
 int sensorValue = 0;
+#define ADC_MAX 4096        // maximum analog read value from ADC, 4096 for ESP32, 1024 for Uno/Atmega
 
 
 // _____________BUZZER_________________
@@ -264,22 +265,26 @@ void play_sound() {
     // Megalovania
     // Composed by Toby Fox
     // D3 eigth note (beamed)
-    tone(BUZZER_PIN, 147, 63);
+    tone(BUZZER_PIN, 147);
+    delay(63);
     noTone(BUZZER_PIN);
     delay(63);
-
+    
     // D3 eigth note (beamed)
-    tone(BUZZER_PIN, 147, 63);
+    tone(BUZZER_PIN, 147);
+    delay(63);
     noTone(BUZZER_PIN);
     delay(63);
-
+  
     // D4 eigth note, dotted rest (beamed)
-    tone(BUZZER_PIN, 294, 125);
+    tone(BUZZER_PIN, 294);
+    delay(125);
     noTone(BUZZER_PIN);
     delay(125);
-
+  
     // A4 quarter note, dotted rest/end
-    tone(BUZZER_PIN, 220, 250);
+    tone(BUZZER_PIN, 220);
+    delay(250);
     noTone(BUZZER_PIN);
   }
 }*/
@@ -330,7 +335,7 @@ void loop() {
   // 4 -> d12
   // 5 -> d20
   sensorValue = analogRead(SENSOR_PIN);
-  sensorValue = map(sensorValue, 0, 1023, 0, 6);
+  sensorValue = map(sensorValue, 0, ADC_MAX, 0, 6);
 
   switch (sensorValue) {
     case 0:
