@@ -61,7 +61,7 @@ void setup(void) {
     case LIS3DH_DATARATE_LOWPOWER_1K6HZ: Serial.println("16 Khz Low Power"); break;
   }
 
-  lis.setClick(1, CLICKTHRESHOLD, CLICKLIMIT, CLICKLATENCY);
+  lis.setClick(1, CLICKTHRESHHOLD, CLICKLIMIT, CLICKLATENCY);
 
   pinMode(21, INPUT);
   pinMode(13, OUTPUT);
