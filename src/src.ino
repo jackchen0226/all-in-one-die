@@ -16,6 +16,9 @@
 // I2C connected SSD1306 display
 #define OLED_RESET    -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 #define OLED_ADDR 0x3C   // Address of the OLED display
+// With the Wire library, the I2C pins of the board you're programming for
+// is set to a default. For ESP32 it is the SCL and SDA pins
+// for the uno/atmega it is ADC 5 (SCL) and ADC 4 (SDA) - J.C
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 /*
@@ -62,7 +65,7 @@ Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3D
 
 const int SENSOR_PIN = A0;  //sensor for pot
 int sensorValue = 0;
-#define ADC_MAX 4096        // maximum analog read value from ADC, 4096 for ESP32, 1024 for Uno/Atmega
+#define ADC_MAX 2048        // maximum analog read value from ADC, 2048 for ESP32, 1024 for Uno/Atmega
 
 
 // _____________BUZZER_________________
